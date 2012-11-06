@@ -1,0 +1,8 @@
+target
+.directory
+.factorypath
+.classpath
+.settings
+.project
+/karaf*
+/geronimo*

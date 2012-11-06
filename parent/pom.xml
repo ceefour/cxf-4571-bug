@@ -1,0 +1,237 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.hendyirawan.cxf4571bug</groupId>
+	<artifactId>com.hendyirawan.cxf4571bug.parent</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>com.hendyirawan.cxf4571bug Parent</name>
+	<description>Parent project of com.hendyirawan.cxf4571bug.</description>
+
+	<url>http://www.hendyirawan.com/</url>
+	<scm>
+<!-- 		<connection>scm:git:git@mahameru.unfuddle.com:mahameru/magento-client.git</connection> -->
+<!-- 		<url>http://mahameru.unfuddle.com/a#/projects/1/repositories/9/browse</url> -->
+	</scm>
+	<organization>
+		<name>Hendy Irawan</name>
+		<url>http://www.hendyirawan.com/</url>
+	</organization>
+	<developers>
+		<developer>
+			<id>ceefour</id>
+			<name>Hendy Irawan</name>
+			<url>http://www.hendyirawan.com/</url>
+			<email>hendy@soluvas.com</email>
+			<organization>Soluvas</organization>
+			<organizationUrl>http://www.soluvas.com/</organizationUrl>
+		</developer>
+	</developers>
+	<licenses>
+		<!--<license>
+			<name>Bippo Commercial License</name>
+			<url>http://www.bippo.co.id/</url>
+		</license>-->
+	</licenses>
+
+	<properties>
+		<app.version>1.0.0-SNAPSHOT</app.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.hendyirawan.cxf4571bug</groupId>
+				<artifactId>com.hendyirawan.cxf4571bug.app</artifactId>
+				<version>${app.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.soluvas</groupId>
+				<artifactId>soluvas-parent</artifactId>
+				<version>1.1.0-SNAPSHOT</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+				<version>2.7.0</version>
+			</dependency>
+		
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>1.2.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-bundle-plugin</artifactId>
+					<version>2.3.7</version>
+					<extensions>true</extensions>
+					<configuration>
+						<instructions>
+							<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						</instructions>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>1.7</version>
+				</plugin>				
+				<!-- rapid OSGi development in Eclipse IDE -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.felix</groupId>
+										<artifactId>maven-bundle-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+											<goal>manifest</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12</version>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>sonatype-nexus</id>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>bippo-nexus-public</id>
+			<url>http://nexus.bippo.co.id/nexus/content/groups/public/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>neo4j.releases</id>
+			<url>http://m2.neo4j.org/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>morphia</id>
+			<url>http://morphia.googlecode.com/svn/mavenrepo</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>typesafe</id>
+			<name>Typesafe Repository</name>
+			<url>http://repo.typesafe.com/typesafe/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>jboss-public-repository</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	
+	<distributionManagement>
+		<!--<snapshotRepository>
+			<id>bippo-private-snapshots</id>
+			<url>http://nexus.bippo.co.id/nexus/content/repositories/bippo-private-snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>bippo-private-releases</id>
+			<url>http://nexus.bippo.co.id/nexus/content/repositories/bippo-private-releases/</url>
+		</repository>-->
+	</distributionManagement>
+
+	<profiles>
+		<profile>
+			<!-- For rapid development using Karaf, do NOT use when deploying to JBoss 
+				using Eclipse IDE -->
+			<id>osgi</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.felix</groupId>
+						<artifactId>maven-bundle-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>manifest</id>
+								<phase>process-classes</phase>
+								<goals>
+									<goal>manifest</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<!-- To deploy to bippo-gk, use: mvn -Pbippo-gk -o -DskipTests clean install deploy -->
+			<id>bippo-gk</id>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>bippo-gk-snapshots</id>
+					<url>http://192.168.66.17:8080/nexus/content/repositories/snapshots/</url>
+				</snapshotRepository>
+				<repository>
+					<id>bippo-gk-releases</id>
+					<url>http://192.168.66.17:8080/nexus/content/repositories/releases/</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+	</profiles>
+
+</project>

@@ -1,0 +1,41 @@
+h1. CXF-4571 bug sample
+
+As a test case for issue https://issues.apache.org/jira/browse/CXF-4571
+
+h2. Building & Running
+
+1. Add the following Maven repository to Karaf configuration :
+
+https://oss.sonatype.org/content/groups/public/
+
+2. Install the following dependencies in Karaf:
+
+bc. install -s mvn:org.apache.geronimo.specs/geronimo-annotation_1.1_spec/1.0.1
+install -s mvn:com.google.guava/guava/13.0.1
+install -s mvn:commons-io/commons-io/2.4
+install -s mvn:org.apache.commons/commons-lang3/3.1
+install -s mvn:commons-codec/commons-codec/1.7
+install -s mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.xpp3/1.1.4c_6
+install -s mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.xstream/1.4.1_1
+install -s mvn:com.fasterxml.jackson.core/jackson-core/2.1.0
+install -s mvn:com.fasterxml.jackson.core/jackson-annotations/2.1.0
+install -s mvn:com.fasterxml.jackson.core/jackson-databind/2.1.0
+install -s mvn:joda-time/joda-time/2.1
+install -s mvn:org.joda/joda-money/0.6.soluvas1
+install -s mvn:com.fasterxml.jackson.datatype/jackson-datatype-joda/2.1.0
+install -s mvn:com.fasterxml.jackson.datatype/jackson-datatype-guava/2.1.0
+install -s mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-beanutils/1.8.3_1
+install -s mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.cglib/2.1_3_7
+features:addurl mvn:org.apache.cxf.karaf/apache-cxf/2.7.0/xml/features
+features:install -v cxf-jaxrs
+features:install -v cxf-databinding-jaxb
+install -s mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/2.1.0
+install -s mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.jsr311-api-1.1.1/2.0.0
+install -s mvn:org.codehaus.jackson/jackson-core-asl/1.9.9
+install -s mvn:org.codehaus.jackson/jackson-mapper-asl/1.9.9
+install -s mvn:org.soluvas/soluvas-json/1.1.0-SNAPSHOT
+install -s mvn:org.soluvas/soluvas-multitenant/1.1.0-SNAPSHOT
+install -s mvn:org.soluvas/soluvas-jaxrs/1.1.0-SNAPSHOT
+
+2. Build the project using @mvn install@ or by importing to Eclipse
+3. Deploy the bundles @com.hendyirawan.cxf4571bug.app@ to Karaf
