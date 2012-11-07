@@ -10,7 +10,7 @@ import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.soluvas.cxf.DynamicJaxrsManager;
+import com.google.common.base.Preconditions;
 import com.soluvas.cxf.JaxrsManager;
 
 /**
@@ -22,7 +22,7 @@ public class JaxrsLsCommand extends OsgiCommandSupport {
 	
 	private transient Logger log = LoggerFactory.getLogger(JaxrsLsCommand.class);
 	
-	private List<JaxrsManager> managers;
+	private final List<JaxrsManager> managers;
 	
 	public JaxrsLsCommand(List<JaxrsManager> managers) {
 		super();
@@ -34,6 +34,7 @@ public class JaxrsLsCommand extends OsgiCommandSupport {
 	 */
 	@Override
 	protected Object doExecute() throws Exception {
+		Preconditions.checkNotNull(managers, "JaxrsManagers is null");
 		System.out.format("%3s | %-20s | %-30s | %s\n",
 				"#", "Server", "Path", "Class");
 		int i = 0;

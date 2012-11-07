@@ -15,7 +15,7 @@
 	<bean id="jaxrsManager" class="com.soluvas.cxf.DynamicJaxrsManager"
 		init-method="init" destroy-method="destroy">
 		<argument ref="blueprintBundleContext"/>
-		<argument value="/api/berbatik_dev" />
+		<argument value="/api" />
 		<argument>
 			<list>
 				<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider"/>
@@ -31,7 +31,7 @@
 		<argument ref="blueprintBundleContext"/>
 		<argument>
 			<bean class="org.osgi.framework.FrameworkUtil" factory-method="createFilter">
-				<argument value="(&amp;(objectClass=java.lang.Iterable)(tenantId=berbatik)(tenantEnv=dev)(type=jaxrs)(address=api))"/>
+				<argument value="(&amp;(objectClass=java.lang.Iterable)(type=jaxrs)(address=api))"/>
 			</bean>
 		</argument> 
 		<argument ref="jaxrsManager"/>

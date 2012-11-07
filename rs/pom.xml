@@ -7,10 +7,10 @@
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
-	<artifactId>com.hendyirawan.cxf4571bug.app</artifactId>
+	<artifactId>com.hendyirawan.cxf4571bug.rs</artifactId>
 	<packaging>bundle</packaging>
-	<name>com.hendyirawan.cxf4571bug App</name>
-	<description>com.hendyirawan.cxf4571bug App</description>
+	<name>com.hendyirawan.cxf4571bug RS</name>
+	<description>com.hendyirawan.cxf4571bug RS</description>
 	
 	<dependencies>
 		<dependency>
@@ -72,11 +72,6 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Import-Package>
-							org.apache.felix.service.command;resolution:=optional,
-							org.apache.felix.gogo.commands;resolution:=optional,
-							org.apache.karaf.shell.console;resolution:=optional,
-							*</Import-Package>
 					</instructions>
 				</configuration>
 			</plugin>

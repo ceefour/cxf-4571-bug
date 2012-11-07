@@ -38,4 +38,69 @@ install -s mvn:org.soluvas/soluvas-multitenant/1.1.0-SNAPSHOT
 install -s mvn:org.soluvas/soluvas-jaxrs/1.1.0-SNAPSHOT
 
 2. Build the project using @mvn install@ or by importing to Eclipse
-3. Deploy the bundles @com.hendyirawan.cxf4571bug.app@ to Karaf
+3. Deploy the bundles @com.hendyirawan.cxf4571bug.app@ and @com.hendyirawan.cxf4571bug.rs@ to Karaf
+
+The error is:
+
+bc. ERROR: Bundle com.hendyirawan.cxf4571bug.app [105] EventDispatcher: Error during dispatch. (org.apache.cxf.service.factory.ServiceConstructionException)
+org.apache.cxf.service.factory.ServiceConstructionException
+        at org.apache.cxf.jaxrs.JAXRSServerFactoryBean.create(JAXRSServerFactoryBean.java:201)
+        at com.soluvas.cxf.DynamicJaxrsManager.createServer(DynamicJaxrsManager.java:74)
+        at com.soluvas.cxf.DynamicJaxrsManager.addingService(DynamicJaxrsManager.java:107)
+        at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:932)
+        at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:1)
+        at org.osgi.util.tracker.AbstractTracked.trackAdding(AbstractTracked.java:256)
+        at org.osgi.util.tracker.AbstractTracked.track(AbstractTracked.java:229)
+        at org.osgi.util.tracker.ServiceTracker$Tracked.serviceChanged(ServiceTracker.java:894)
+        at org.apache.felix.framework.util.EventDispatcher.invokeServiceListenerCallback(EventDispatcher.java:932)
+        at org.apache.felix.framework.util.EventDispatcher.fireEventImmediately(EventDispatcher.java:793)
+        at org.apache.felix.framework.util.EventDispatcher.fireServiceEvent(EventDispatcher.java:543)
+        at org.apache.felix.framework.Felix.fireServiceEvent(Felix.java:4260)
+        at org.apache.felix.framework.Felix.registerService(Felix.java:3275)
+        at org.apache.felix.framework.BundleContextImpl.registerService(BundleContextImpl.java:346)
+        at org.apache.aries.blueprint.container.BlueprintContainerImpl.registerService(BlueprintContainerImpl.java:421)
+        at org.apache.aries.blueprint.container.ServiceRecipe.register(ServiceRecipe.java:191)
+        at org.apache.aries.blueprint.container.BlueprintContainerImpl.registerServices(BlueprintContainerImpl.java:668)
+        at org.apache.aries.blueprint.container.BlueprintContainerImpl.doRun(BlueprintContainerImpl.java:352)
+        at org.apache.aries.blueprint.container.BlueprintContainerImpl.run(BlueprintContainerImpl.java:252)
+        at org.apache.aries.blueprint.utils.threading.impl.DiscardableRunnable.run(DiscardableRunnable.java:48)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+        at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+        at java.lang.Thread.run(Thread.java:722)
+Caused by: javax.ws.rs.WebApplicationException
+        at org.apache.cxf.jaxrs.AbstractJAXRSFactoryBean.checkResources(AbstractJAXRSFactoryBean.java:315)
+        at org.apache.cxf.jaxrs.JAXRSServerFactoryBean.create(JAXRSServerFactoryBean.java:148)
+        ... 27 more
+
+h2. Try with CXF 2.6.3
+
+It should work:
+
+bc. features:uninstall cxf-core/2.7.0
+features:uninstall cxf-jaxrs/2.7.0
+features:uninstall cxf-databinding-jaxb/2.7.0
+features:uninstall cxf-http/2.7.0
+features:uninstall cxf-specs/2.7.0
+features:addurl mvn:org.apache.cxf.karaf/apache-cxf/2.6.3/xml/features
+features:install -v cxf-jaxrs/2.6.3 cxf-databinding-jaxb/2.6.3
+
+You may need to restart Karaf to "clean".
+
+There is a jaxrs:ls command which should show: (works under CXF 2.6.3)
+
+bc. karaf@root> jaxrs:ls
+  # | Server               | Path                           | Class
+  1 | /api                 | product                        | com.hendyirawan.cxf4571bug.rs.ProductSysResource
+1 JAX-RS resources
+
+Visiting http://localhost:8181/cxf/api/product should return: (tested under CXF 2.6.3)
+
+bc. {
+  "name": "Tas Batik",
+  "price": 450000
+}

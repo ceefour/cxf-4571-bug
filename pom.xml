@@ -16,6 +16,7 @@
 		<module>parent</module>
 		
 		<module>app</module>
+		<module>rs</module>
 		
 	</modules>
 
